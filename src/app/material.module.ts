@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -7,7 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list'
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
     imports: [
         FlexLayoutModule,
@@ -17,7 +24,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatFormFieldModule,
         MatInputModule,
         MatSidenavModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatDialogModule,
+        MatListModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule
     ],
     exports: [
         FlexLayoutModule,
@@ -27,7 +42,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatFormFieldModule,
         MatInputModule,
         MatSidenavModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatDialogModule,
+        MatListModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule
     ]
 })
 export class MaterialModule { }
