@@ -1,5 +1,5 @@
 <section class="signup-form">
-    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
         <mat-form-field>
             <input type="email" matInput placeholder="Your email" ngModel email required name="email"
                 #emailInput="ngModel">
@@ -12,6 +12,6 @@
 
             <mat-hint align="end">{{pwInput.value?.length}} / 6</mat-hint>
         </mat-form-field>
-        <button type="submit" mat-raised-button color="primary">Submit</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
     </form>
 </section>
