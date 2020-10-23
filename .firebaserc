@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angu-fire-b6286": {
+      "hosting": {
+        "material-angularfire": [
+          "angu-fire-b6286"
+        ]
+      }
+    }
+  }
+}
