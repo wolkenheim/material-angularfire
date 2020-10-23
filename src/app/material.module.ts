@@ -16,6 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
     imports: [
         FlexLayoutModule,
@@ -34,7 +36,9 @@ import { MatTableModule } from '@angular/material/table';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        MatTableModule
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
     ],
     exports: [
         FlexLayoutModule,
@@ -53,7 +57,9 @@ import { MatTableModule } from '@angular/material/table';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        MatTableModule
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
     ]
 })
 export class MaterialModule { }

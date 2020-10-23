@@ -4,8 +4,8 @@ import { TrainingState } from './training-states.enum';
 
 export class ExerciseService {
     private availableExercises: Exercise[] = [
-        { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-        { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
+        { id: 'crunches', name: 'Crunches', duration: 1, calories: 8 },
+        { id: 'touch-toes', name: 'Touch Toes', duration: 1, calories: 15 },
         { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
         { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
     ];
@@ -15,16 +15,16 @@ export class ExerciseService {
 
     private exercises: Exercise[] = [];
 
-    getAvailableExercises() {
+    getAvailableExercises(): Exercise[] {
         return this.availableExercises.slice();
     }
 
-    startExercise(selectedId: string) {
+    startExercise(selectedId: string): void {
         this.activeExercise = this.availableExercises.find(exercise => selectedId === exercise.id);
         this.activeExerciseSelected.next({ ...this.activeExercise });
     }
 
-    completeExercise() {
+    completeExercise(): void {
         this.exercises.push({
             ...this.activeExercise,
             date: new Date(),
@@ -34,7 +34,7 @@ export class ExerciseService {
         this.activeExerciseSelected.next(null);
     }
 
-    cancelExercise(progress: number) {
+    cancelExercise(progress: number): void {
         this.exercises.push({
             ...this.activeExercise,
             duration: this.activeExercise.duration * (progress / 100),
@@ -46,7 +46,11 @@ export class ExerciseService {
         this.activeExerciseSelected.next(null);
     }
 
-    getActiveExercise() {
+    getActiveExercise(): Exercise {
         return { ... this.activeExercise };
+    }
+
+    getCompletedOrCancelledExercises(): Exercise[] {
+        return this.exercises.slice();
     }
 }
