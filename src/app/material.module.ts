@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
     imports: [
         FlexLayoutModule,
@@ -32,7 +33,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatProgressSpinnerModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTableModule
     ],
     exports: [
         FlexLayoutModule,
@@ -50,7 +52,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatProgressSpinnerModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTableModule
     ]
 })
 export class MaterialModule { }
