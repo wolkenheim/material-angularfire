@@ -1,23 +1,50 @@
 import { Exercise } from './exercise.model';
 import { Subject } from 'rxjs';
 import { TrainingState } from './training-states.enum';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 
+type FirebaseExercise = { 'name': string, 'duration': number, 'calories': number };
+
+@Injectable()
 export class ExerciseService {
-    private availableExercises: Exercise[] = [
-        { id: 'crunches', name: 'Crunches', duration: 1, calories: 8 },
-        { id: 'touch-toes', name: 'Touch Toes', duration: 1, calories: 15 },
-        { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-        { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
-    ];
+    private availableExercises: Exercise[] = [];
 
     private activeExercise: Exercise;
     activeExerciseSelected = new Subject<Exercise>();
+    exercisesChanges = new Subject<Exercise[]>();
 
     private exercises: Exercise[] = [];
+
+    constructor(
+        private readonly db: AngularFirestore
+    ) { }
 
     getAvailableExercises(): Exercise[] {
         return this.availableExercises.slice();
     }
+
+    fetchAvailableExercises(): void {
+        this.db.collection('availableExercises')
+            .snapshotChanges()
+            .pipe(map(docArray => {
+                return docArray.map(doc => {
+                    let firebaseExercise: FirebaseExercise = doc.payload.doc.data() as FirebaseExercise;
+                    return {
+                        id: doc.payload.doc.id,
+                        name: firebaseExercise.name,
+                        duration: firebaseExercise.duration,
+                        calories: firebaseExercise.calories,
+                    } as Exercise;
+                })
+            })
+            ).subscribe((exercises: Exercise[]) => {
+                this.availableExercises = exercises;
+                this.exercisesChanges.next([...this.availableExercises]);
+            })
+    }
+
 
     startExercise(selectedId: string): void {
         this.activeExercise = this.availableExercises.find(exercise => selectedId === exercise.id);
