@@ -16,10 +16,10 @@
         <a routerLink="/login">Login</a>
       </li>
       <li *ngIf="isAuth">
-        <a style="cursor: pointer" routerLink="/training" (click)="onLogout()">Training</a>
+        <a style="cursor: pointer" routerLink="/training">Training</a>
       </li>
       <li>
-        <a>Logout</a>
+        <a (click)="onLogout()">Logout</a>
       </li>
     </ul>
   </div>

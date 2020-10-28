@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ExerciseService } from '../training/exercise.service';
 
 @Injectable()
 export class AuthService {
@@ -12,13 +13,13 @@ export class AuthService {
 
     constructor(
         private router: Router,
-        private auth: AngularFireAuth
+        private afAuth: AngularFireAuth,
+        private exerciseService: ExerciseService
     ) { }
 
     async registerUser(authData: AuthData) {
         try {
-            await this.auth.createUserWithEmailAndPassword(authData.email, authData.password)
-            this.authSucces();
+            await this.afAuth.createUserWithEmailAndPassword(authData.email, authData.password)
         } catch (error) {
             this.isAuthenticated = false;
             console.log(error);
@@ -28,27 +29,31 @@ export class AuthService {
 
     async login(authData: AuthData) {
         try {
-            await this.auth.signInWithEmailAndPassword(authData.email, authData.password)
-            this.authSucces();
+            await this.afAuth.signInWithEmailAndPassword(authData.email, authData.password)
         } catch (error) {
-            this.isAuthenticated = false;
             console.log(error);
         }
     }
 
     logout() {
-        this.isAuthenticated = false;
-        this.authChange.next(false);
-        this.router.navigate(['/login']);
+        this.afAuth.signOut();
     }
 
     isAuth() {
         return this.isAuthenticated;
     }
-
-    private authSucces() {
-        this.isAuthenticated = true;
-        this.authChange.next(true);
-        this.router.navigate(['/training']);
+    initAuthListener() {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                this.isAuthenticated = true;
+                this.authChange.next(true);
+                this.router.navigate(['/training']);
+            } else {
+                this.exerciseService.cancelSubscriptions();
+                this.authChange.next(false);
+                this.router.navigate(['/login']);
+                this.isAuthenticated = false;
+            }
+        });
     }
 }
