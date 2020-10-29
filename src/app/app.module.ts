@@ -7,7 +7,7 @@ import { MaterialModule } from './material.module';
 import { environment } from '../environments/environment'
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 import { HeaderComponent } from './navigation/header/header.component';
@@ -28,6 +28,7 @@ import { TrainingModule } from './training/training.module';
     StopTrainingComponent,
   ],
   imports: [
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AppRoutingModule,
