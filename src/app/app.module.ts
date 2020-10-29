@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -18,6 +19,7 @@ import { ExerciseService } from './training/exercise.service';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
 import { TrainingModule } from './training/training.module';
+import { appReducer } from './app.reducers';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { TrainingModule } from './training/training.module';
     MaterialModule,
     AuthModule,
     TrainingModule,
+    StoreModule.forRoot({ ui: appReducer })
   ],
   providers: [AuthService, ExerciseService, UIService],
   bootstrap: [AppComponent],
