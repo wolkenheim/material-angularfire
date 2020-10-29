@@ -4,6 +4,7 @@ import { TrainingState } from './training-states.enum';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { UIService } from '../shared/ui.service';
 
 type FirebaseExercise = { 'name': string, 'duration': number, 'calories': number };
 
@@ -18,7 +19,8 @@ export class ExerciseService {
     private firebaseSubs: Subscription[] = [];
 
     constructor(
-        private readonly db: AngularFirestore
+        private readonly db: AngularFirestore,
+        private uiService: UIService
     ) { }
 
     getAvailableExercises(): Exercise[] {
@@ -43,7 +45,12 @@ export class ExerciseService {
                 ).subscribe((exercises: Exercise[]) => {
                     this.availableExercises = exercises;
                     this.exercisesChanges.next([...this.availableExercises]);
+                }, error => {
+                    this.uiService.loadingStateChanged.next(false);
+                    this.uiService.showSnackbar("Fetching Exercises failed", null, 3000);
+                    this.exercisesChanges.next(null);
                 })
+
         )
     }
 
@@ -85,7 +92,8 @@ export class ExerciseService {
                 .valueChanges()
                 .subscribe((exercises: Exercise[]) => {
                     this.finishedExercisesChanged.next(exercises);
-                })
+                }, error =>
+                    this.uiService.showSnackbar("Saving Exercise failed", null, 3000))
         )
     }
 
@@ -94,7 +102,6 @@ export class ExerciseService {
     }
 
     private addDataToDatabase(exercise: Exercise) {
-        console.log("add called", exercise);
         this.db.collection('finishedExercises').add(exercise);
     }
 }
