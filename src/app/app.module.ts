@@ -12,7 +12,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { StopTrainingComponent } from './training/current-training/stop-training.component';
+
 import { AuthService } from './auth/auth.service';
 import { ExerciseService } from './training/exercise.service';
 import { UIService } from './shared/ui.service';
@@ -25,7 +25,6 @@ import { TrainingModule } from './training/training.module';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    StopTrainingComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -40,6 +39,6 @@ import { TrainingModule } from './training/training.module';
   ],
   providers: [AuthService, ExerciseService, UIService],
   bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+  exports: []
 })
 export class AppModule { }
