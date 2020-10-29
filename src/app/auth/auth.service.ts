@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ExerciseService } from '../training/exercise.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class AuthService {
@@ -14,15 +15,17 @@ export class AuthService {
     constructor(
         private router: Router,
         private afAuth: AngularFireAuth,
-        private exerciseService: ExerciseService
+        private exerciseService: ExerciseService,
+        private snackbar: MatSnackBar
     ) { }
 
     async registerUser(authData: AuthData) {
         try {
             await this.afAuth.createUserWithEmailAndPassword(authData.email, authData.password)
         } catch (error) {
-            this.isAuthenticated = false;
-            console.log(error);
+            this.snackbar.open(error.message, null, {
+                duration: 3000
+            });
         }
 
     }
@@ -31,7 +34,9 @@ export class AuthService {
         try {
             await this.afAuth.signInWithEmailAndPassword(authData.email, authData.password)
         } catch (error) {
-            console.log(error);
+            this.snackbar.open(error.message, null, {
+                duration: 3000
+            });
         }
     }
 
