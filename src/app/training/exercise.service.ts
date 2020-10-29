@@ -43,6 +43,7 @@ export class ExerciseService {
                     })
                 })
                 ).subscribe((exercises: Exercise[]) => {
+                    this.uiService.loadingStateChanged.next(false);
                     this.availableExercises = exercises;
                     this.exercisesChanges.next([...this.availableExercises]);
                 }, error => {
